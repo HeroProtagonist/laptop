@@ -134,7 +134,7 @@ cask "postico"
 cask "postman"
 cask "notion"
 cask "spotify"
-cask "TomAnthony/brews/itermocil"
+brew "TomAnthony/brews/itermocil"
 cask "visual-studio-code"
 cask "zoom"
 
