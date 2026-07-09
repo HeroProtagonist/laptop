@@ -123,6 +123,7 @@ brew bundle --file=- <<EOF
 cask "bettertouchtool"
 cask "caffeine"
 cask "cd-to"
+cask "claude"
 cask "cursor"
 cask "docker"
 cask "firefox"
