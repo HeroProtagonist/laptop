@@ -149,50 +149,26 @@ brew "zsh"
 brew "gh"
 EOF
 
-fancy_echo "Configuring asdf version manager ..."
-if [ ! -d "$HOME/.asdf" ]; then
-  brew install asdf
-  append_to_zshrc "source $(brew --prefix asdf)/libexec/asdf.sh" 1
+fancy_echo "Configuring mise ..."
+if ! command -v mise >/dev/null 2>&1; then
+  brew install mise
+  append_to_zshrc "eval \"$(mise activate zsh)\""
 else
-  brew upgrade asdf
+  brew upgrade mise
 fi
 
-alias install_asdf_plugin=add_or_update_asdf_plugin
-add_or_update_asdf_plugin() {
-  local name="$1"
-  local url="$2"
+mise use -g node@26.5
+mise use -g yarn@4.17.1
 
-  if ! asdf plugin list | grep -Fq "$name"; then
-    asdf plugin add "$name" "$url"
-  else
-    asdf plugin update "$name"
-  fi
-}
+mise use -g python@3.14
+mise use -g uv
 
-# shellcheck disable=SC1091
-. "$(brew --prefix asdf)/libexec/asdf.sh"
-add_or_update_asdf_plugin "ruby" "https://github.com/asdf-vm/asdf-ruby.git"
-add_or_update_asdf_plugin "nodejs" "https://github.com/asdf-vm/asdf-nodejs.git"
+# https://mise.jdx.dev/lang/node.html#nvmrc-node-version-and-package-json-support
+mise settings add idiomatic_version_file_enable_tools node
+mise settings add idiomatic_version_file_enable_tools yarn
+mise settings add idiomatic_version_file_enable_tools npm
 
-install_asdf_language() {
-  local language="$1"
-  local version
-  version="$(asdf list all "$language" | grep -v "[a-z]" | tr -s '\n' | tail -1)"
-
-  if ! asdf list "$language" | grep -Fq "$version"; then
-    asdf install "$language" "$version"
-    asdf set --home "$language" "$version"
-  fi
-}
-
-fancy_echo "Installing latest Ruby ..."
-install_asdf_language "ruby"
-gem update --system
-number_of_cores=$(sysctl -n hw.ncpu)
-bundle config --global jobs $((number_of_cores - 1))
-
-fancy_echo "Installing latest Node ..."
-install_asdf_language "nodejs"
+git config --global push.default current
 
 if [ -f "$HOME/.laptop.local" ]; then
   fancy_echo "Running your customizations from ~/.laptop.local ..."
