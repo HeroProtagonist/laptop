@@ -122,12 +122,12 @@ brew bundle --file=- <<EOF
 # Applications
 cask "bettertouchtool"
 cask "caffeine"
-cask "cd-to"
 cask "claude"
 cask "cursor"
 cask "docker-desktop"
 cask "firefox"
 cask "flycut"
+cask "ghostty"
 cask "github"
 cask "google-chrome"
 cask "iterm2"
@@ -141,8 +141,15 @@ cask "spotify"
 cask "visual-studio-code"
 cask "zoom"
 
+# Fonts
+cask "font-jetbrains-mono"
+cask "font-monaspace"
+
 # Unix
 brew "git"
+brew "jq"
+brew "1password-cli"
+brew "tree"
 brew "zsh"
 
 # GitHub
