@@ -137,6 +137,11 @@ cask "zoom"
 cask "font-jetbrains-mono"
 cask "font-monaspace"
 
+# LLM
+cask "llama-app"
+brew "llama.cpp"
+brew "pi-coding-agent"
+
 # Unix
 brew "git"
 brew "jq"
@@ -147,6 +152,8 @@ brew "zsh"
 # GitHub
 brew "gh"
 EOF
+
+pi install git:github.com/huggingface/pi-llama
 
 fancy_echo "Configuring mise ..."
 if ! command -v mise >/dev/null 2>&1; then
