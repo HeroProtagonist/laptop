@@ -145,7 +145,7 @@ brew "pi-coding-agent"
 # Unix
 brew "git"
 brew "jq"
-brew "1password-cli"
+cask "1password-cli"
 brew "tree"
 brew "zsh"
 
@@ -158,7 +158,7 @@ pi install git:github.com/huggingface/pi-llama
 fancy_echo "Configuring mise ..."
 if ! command -v mise >/dev/null 2>&1; then
   brew install mise
-  append_to_zshrc "eval \"$(mise activate zsh)\""
+  append_to_zshrc 'eval "$(mise activate zsh)"'
 else
   brew upgrade mise
 fi
